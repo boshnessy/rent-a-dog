@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   delete '/dogs/:id' => '#dogs#destroy'
   get '/users/:id' => 'users#show'
   post '/users/' => 'users#create'
+  get '/reviews' => 'reviews#index'
+  post '/reviews' => 'reviews#create'
 end
