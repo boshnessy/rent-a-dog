@@ -14,7 +14,7 @@ class UsersController < ApplicationController
         location: params[:location]
     )
     if user.save
-      render json: user.as_json
+      render json: {message: 'User created successfully'}, status: :created
     else
       render json: {errors: user.errors.full_messages}, status: :bad_request
     end
