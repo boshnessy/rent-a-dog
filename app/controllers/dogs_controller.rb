@@ -12,10 +12,10 @@ class DogsController < ApplicationController
 
   def create
     dog = Dog.new(
-      name: name,
-      breed: breed,
-      age: age,
-      location: location
+      name: params[:name],
+      breed: params[:breed],
+      age: params[:age],
+      location: params[:location]
     )
     if dog.save
       render json: dog.as_json
@@ -28,10 +28,10 @@ class DogsController < ApplicationController
     id = params[:id]
     dog = Dog.find_by(id: id)
     if dog.update(
-      name: name,
-      breed: breed,
-      age: age,
-      location: location
+      name: params[:name],
+      breed: params[:breed],
+      age: params[:age],
+      location: params[:location]
     )
       render json: dog.as_json
     else
