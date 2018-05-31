@@ -4,10 +4,15 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      message: "Welcome to Vue.js!"
+      message: "Rent-A-Dog",
+      dogs: []
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/dogs").then(function(response) {
+      this.dogs = response.data;
+    }.bind(this));
+  },
   methods: {},
   computed: {}
 };
