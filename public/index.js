@@ -1,5 +1,55 @@
 /* global Vue, VueRouter, axios */
 
+var NewDogPage = {
+  template: "#new-dog-page",
+  data: function() {
+    return {
+      name: "",
+      breed: "",
+      age: "",
+      location: "",
+      note: "",
+      image: "",
+      errors: []
+    };
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        breed: this.breed,
+        age: this.age,
+        location: this.location,
+        note: this.note,
+        image: this.image
+      };
+      axios.post("/dogs", params).then(function(response) {
+        router.push("/");
+      }).catch(function(error) {
+        this.errors = error.response.data.errors;
+      }.bind(this));
+    },
+    uploadFile: function(event) {
+      if (event.target.files.length > 0) {
+        var formData = new FormData();
+        formData.append("name", this.name);
+        formData.append("breed", this.breed);
+        formData.append("age", this.age);
+        formData.append("location", this.location);
+        formData.append("note", this.note);
+        formData.append("image", event.target.files[0]);
+
+        axios
+          .post("/dogs", formData)
+          .then(function(response) {
+            router.push("/");
+          }.bind(this));
+      }
+    }
+  },
+  computed: {}
+};
+
 var HomePage = {
   template: "#home-page",
   data: function() {
@@ -99,7 +149,8 @@ var router = new VueRouter({
     { path: "/", component: HomePage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
-    { path: "/logout", component: LogoutPage }
+    { path: "/logout", component: LogoutPage },
+    { path: "/dogs/new", component: NewDogPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

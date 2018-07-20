@@ -13,12 +13,49 @@
     <a href="/#/signup">Signup</a>
     <a href="/#/login">Login</a>
     <a href="/#/logout">Logout</a>
+    <a href="/#/dogs/new">Add A Dog</a>
 
     <router-view></router-view>
 
   </div>
 </body>
 </html>
+
+<template id="new-dog-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>Add A Dog</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Breed:</label>
+        <input type="text" class="form-control" v-model="breed">
+      </div>
+      <div class="form-group">
+        <label>Age:</label>
+        <input type="text" class="form-control" v-model="age">
+      </div>
+      <div class="form-group">
+        <label>Location:</label>
+        <input type="text" class="form-control" v-model="location">
+      </div>
+      <div class="form-group">
+        <label>Note:</label>
+        <input type="text" class="form-control" v-model="note">
+      </div>
+      <div class="form-group">
+         <label>Picture:</label>
+         <input type="file" class="form-control" v-on:change="uploadFile($event)">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Add Dog</button>
+    </div>
+  </div>
+</template>
 
 <template id="home-page">
   <div class="vue-component">
@@ -28,6 +65,7 @@
       <h2>{{ dog.name }}, {{ dog.age }}</h2>
       <h3>{{ dog.breed }}</h2>
       <h4>{{ dog.note }}</h2>
+      <img v-bind:src="event.images[0].url">
       <hr>
     </div>
 
